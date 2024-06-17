@@ -8,7 +8,7 @@
         width: 100%;
       }
       #progressBar {
-        height: 5px;
+        height: 15px;
         width: 0%;
         background-color: #35b44f;
         transition: width .4s ease-in-out;
@@ -44,6 +44,11 @@
         font-size: 17px;
         padding: 5px;
       }
+      form {
+        color: #fff;
+        font-size: 17px;
+        padding: 5px;
+      }
       a:link, a:visited {
         color: #30a247;
         text-decoration: none;
@@ -51,8 +56,15 @@
     </style>
   </head>
   <body>
+    <form>
+      <label for="torrentId">Download from a magnet link: </label>
+      <input name="torrentId" style="width: 800px;" placeholder="magnet:">
+      <button type="submit">Download</button>
+    </form>
+    <br>
     <div>
       <div id="progressBar"></div>
+      <br>
       <video id="output" controls></video>
     </div>
     <!-- Statistics -->
@@ -60,10 +72,7 @@
       <div>
         <span class="show-leech">Downloading </span>
         <span class="show-seed">Seeding </span>
-        <code>
-          <!-- Informative link to the torrent file -->
-          <a id="torrentLink" href="https://webtorrent.io/torrents/sintel.torrent">sintel.torrent</a>
-        </code>
+        <code id="torrentName"></code>
         <span class="show-leech"> from </span>
         <span class="show-seed"> to </span>
         <code id="numPeers">0 peers</code>.
@@ -84,8 +93,6 @@
       // Include the latest version of WebTorrent
       import WebTorrent from './webtorrent.min.prettier.js'
 
-      const torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
-
       const client = new WebTorrent()
 
       // HTML elements
@@ -97,21 +104,29 @@
       const $remaining = document.querySelector('#remaining')
       const $uploadSpeed = document.querySelector('#uploadSpeed')
       const $downloadSpeed = document.querySelector('#downloadSpeed')
+      const $torrentName = document.querySelector('#torrentName')
 
-      navigator.serviceWorker.register('./sw.min.prettier.js', { scope: './' }).then(reg => {
-        const worker = reg.active || reg.waiting || reg.installing
-        function checkState (worker) {
-          return worker.state === 'activated' && client.createServer({ controller: reg }) && download()
-        }
-        if (!checkState(worker)) {
-          worker.addEventListener('statechange', ({ target }) => checkState(target))
-        }
+      document.querySelector('form').addEventListener('submit', e => {
+          e.preventDefault() // Prevent page refresh
+
+          const torrentId = document.querySelector('form input[name=torrentId]').value
+
+          navigator.serviceWorker.register('./sw.min.prettier.js', { scope: './' }).then(reg => {
+            const worker = reg.active || reg.waiting || reg.installing
+            function checkState (worker) {
+              return worker.state === 'activated' && client.createServer({ controller: reg }) && download(torrentId)
+            }
+            if (!checkState(worker)) {
+              worker.addEventListener('statechange', ({ target }) => checkState(target))
+            }
+          })
       })
 
-      function download () {
+      function download (torrentId) {
           try {
             // Download the torrent
             client.add(torrentId, { path: 'D:/Downloads' }, torrent => {
+              window.alert("About to Download: " + torrent.name);
               // Torrents can contain many files. Let's use the .mp4 file
               const file = torrent.files.find(file => {
                 return file.name.endsWith('.mp4')
@@ -119,6 +134,21 @@
 
               // Stream the file in the browser
               file.streamTo(document.querySelector('#output'))
+
+              for (const file of torrent.files) {
+                waitForDownload(file)
+              }
+              
+              async function waitForDownload(file) {
+                const blob = await file.blob()
+                const url = URL.createObjectURL(blob)
+                const n = document.createElement("a");
+                n.setAttribute("href", url);
+                n.setAttribute("download", file.path);
+                n.click();
+              }
+              
+              $torrentName.innerHTML = torrent.name
 
               // Trigger statistics refresh
               torrent.on('done', onDone)
