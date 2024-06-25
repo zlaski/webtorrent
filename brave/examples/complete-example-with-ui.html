@@ -65,7 +65,6 @@
     <div>
       <div id="progressBar"></div>
       <br>
-      <video id="output" controls></video>
     </div>
     <!-- Statistics -->
     <div id="status">
@@ -110,6 +109,7 @@
           e.preventDefault() // Prevent page refresh
 
           const torrentId = document.querySelector('form input[name=torrentId]').value
+          window.alert("Starting download: " + torrentId);
 
           navigator.serviceWorker.register('./sw.min.prettier.js', { scope: './' }).then(reg => {
             const worker = reg.active || reg.waiting || reg.installing
@@ -127,14 +127,7 @@
             // Download the torrent
             client.add(torrentId, { path: 'D:/Downloads' }, torrent => {
               window.alert("About to Download: " + torrent.name);
-              // Torrents can contain many files. Let's use the .mp4 file
-              const file = torrent.files.find(file => {
-                return file.name.endsWith('.mp4')
-              })
-
-              // Stream the file in the browser
-              file.streamTo(document.querySelector('#output'))
-
+ 
               for (const file of torrent.files) {
                 waitForDownload(file)
               }
