@@ -29,7 +29,7 @@
     "./lib/utp.cjs": false,
     "@silentbot1/nat-api": false,
     "fs": false,
-    "fs-chunk-store": "memory-chunk-store",
+    "fs-chunk-store": "hybrid-chunk-store",
     "http": "@webtorrent/http-node",
     "https": "@webtorrent/http-node",
     "load-ip-set": false,
