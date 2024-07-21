@@ -23,7 +23,7 @@
     "ut_pex": false
   },
   "bugs": {
-    "url": "https://github.com/webtorrent/webtorrent/issues"
+    "url": "https://github.com/zlaski/webtorrent/issues"
   },
   "chromeapp": {
     "./lib/utp.cjs": false,
@@ -157,7 +157,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/webtorrent.git"
+    "url": "git://github.com/zlaski/webtorrent.git"
   },
   "scripts": {
     "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
