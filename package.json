@@ -45,14 +45,14 @@
     "bittorrent-dht": "^11.0.6",
     "bittorrent-protocol": "^4.1.13",
     "cache-chunk-store": "^3.2.2",
-    "chunk-store-iterator": "github:zlaski/chunk-store-iterator#master",
+    "chunk-store-iterator": "https://github.com/zlaski/chunk-store-iterator#master",
     "cpus": "^1.0.3",
     "create-torrent": "^6.0.18",
-    "cross-fetch-ponyfill": "github:zlaski/cross-fetch-ponyfill#master",
+    "cross-fetch-ponyfill": "https://github.com/zlaski/cross-fetch-ponyfill#master",
     "debug": "^4.3.5",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^4.1.0",
-    "hybrid-chunk-store": "github:zlaski/hybrid-chunk-store#master",
+    "hybrid-chunk-store": "https://github.com/zlaski/hybrid-chunk-store#master",
     "immediate-chunk-store": "^2.2.0",
     "join-async-iterator": "^1.1.1",
     "load-ip-set": "^3.0.1",
@@ -69,10 +69,10 @@
     "run-parallel-limit": "^1.1.0",
     "speed-limiter": "^1.0.2",
     "streamx": "^2.17.0",
-    "throughput": "github:zlaski/throughput#main",
+    "throughput": "https://github.com/zlaski/throughput#main",
     "torrent-discovery": "^11.0.7",
     "torrent-piece": "^3.0.0",
-    "uint8-util": "github:zlaski/uint8-util#master",
+    "uint8-util": "https://github.com/zlaski/uint8-util#master",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^4.0.3",
     "ut_pex": "^4.0.4"
@@ -157,7 +157,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/zlaski/webtorrent.git"
+    "url": "https://github.com/zlaski/webtorrent.git"
   },
   "scripts": {
     "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
