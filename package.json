@@ -13,7 +13,7 @@
     "./lib/utp.js": false,
     "bittorrent-dht/client": false,
     "fs": false,
-    "fs-chunk-store": "memory-chunk-store",
+    "fs-chunk-store": "hybrid-chunk-store",
     "load-ip-set": false,
     "net": false,
     "os": false,
@@ -29,7 +29,7 @@
   },
   "chromeapp": {
     "./lib/utp.js": false,
-    "fs-chunk-store": "memory-chunk-store",
+    "fs-chunk-store": "hybrid-chunk-store",
     "http": "@webtorrent/http-node",
     "load-ip-set": false,
     "net": "chrome-net",
@@ -51,6 +51,7 @@
     "escape-html": "^1.0.3",
     "fast-blob-stream": "^1.1.1",
     "fs-chunk-store": "^3.0.1",
+    "hybrid-chunk-store": "^1.2.6",
     "immediate-chunk-store": "^2.2.0",
     "join-async-iterator": "^1.1.1",
     "load-ip-set": "^2.2.1",
@@ -140,7 +141,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/webtorrent.git"
+    "url": "git://github.com/zlaski/webtorrent.git#hybrid-chunk-store"
   },
   "scripts": {
     "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
