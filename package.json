@@ -157,7 +157,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/webtorrent.git"
+    "url": "git://github.com/zlaski/webtorrent.git#hybrid-chunk-store"
   },
   "scripts": {
     "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
